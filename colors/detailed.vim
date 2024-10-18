@@ -747,6 +747,22 @@ fun! s:ruby_syntax_and_highlights()
   " The default syntax/ruby.vim gets this way wrong (only does 2 chars and is
   " transparent):
   syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]*" contains=NONE display
+
+  " This was disabled in
+  " https://github.com/vim-ruby/vim-ruby/commit/074200ffa39b19baf9d9750d399d53d97f21ee07
+  " and removed in
+  " https://github.com/vim-ruby/vim-ruby/commit/eba523334fe14e5c9b9585a287a336317da26d70
+  hi def link rubyBlockParameter rubyIdentifier
+  syn match rubyBlockParameter "\%(\h\|[^\x00-\x7F]\)\%(\w\|[^\x00-\x7F]\)*" contained
+  syn cluster rubyDeclaration add=rubyBlockParameter
+  hi link rubyBlockParameter detailedBlockParameter
+  syn region rubyBlockParameterList start="\%(\%(\<do\>\|{\)\_s*\)\@32<=|" end="|" contains=rubyBlockParameter,rubySplatOperator,rubyDoubleSplatOperator,rubyProcOperator
+  " This is new though
+  syn match rubyNumberedBlockParam "_[1-9]" display
+  syn match rubyNumberedBlockParamError "_0" display
+  hi link rubyNumberedBlockParam rubyBlockParameter
+  hi def link rubyNumberedBlockParamError	rubyError
+
   " Bonus!
   syn match detailedInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
 
