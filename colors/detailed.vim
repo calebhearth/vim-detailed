@@ -748,49 +748,36 @@ fun! s:ruby_syntax_and_highlights()
   " transparent):
   syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]*" contains=NONE display
   " Bonus!
-  syn match rubyInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
+  syn match detailedInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
 
-  syn match rubyEncodingDirective "\cencoding: *utf-8" contained
-
-  " TODO - make this more elegant.
-  syn match rubyFirstAndSecondCommentLine '\%^#.*'
-        \ contains=rubyEncodingDirective contained
-  syn match rubyFirstAndSecondCommentLine '\%^#.*\n#.*'
-        \ contains=rubyEncodingDirective contained
-
-  syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,
-        \rubyFirstAndSecondCommentLine,detailedTodo,detailedFixme,detailedXxx,@Spell
+  syn match   rubyComment   "#.*" contains=@rubyCommentSpecial,rubySpaceError,
+        \detailedTodo,detailedFixme,detailedXxx,@Spell
 
   hi link rubyConditional  Conditional
-  hi link rubyExceptional  rubyConditional " No-show.
-  hi link rubyMethodExceptional  rubyDefine " And another.
+  hi link rubyExceptionHandler  rubyConditional " No-show.
   hi link rubyStringEscape  Special
   hi link rubyQuoteEscape  rubyStringEscape
-  hi link rubyInvalidVariable  Error
-  hi link rubyNoInterpolation  rubyString " E.g. \#{} inside a string.
   hi link rubyException   Exception
   hi link rubyKeyword     Keyword
   hi link rubyConstant detailedConstant
-  hi link rubyEncodingDirective detailedEncodingDirective
-  hi link rubyInitialize detailedInitialize
-  hi link rubyRailsARAssociationMethod detailedRailsARAssociationMethod
+  hi link rubyEncoding detailedEncodingDirective
+  hi link rubyEntity detailedRailsARAssociationMethod
   hi link rubySpaceError BadWhitespace
   hi link rubyData detailedData
   hi link rubyDataDirective detailedDataDirective
-  hi link rubyDocumentation  Comment
-  hi link rubyComment Comment
   hi link rubyFirstAndSecondCommentLine rubySharpBang
   hi link rubySharpBang detailedSharpBang
-  hi link rubyDoBlock rubyRepeatExpression
+  hi link rubyDoBlock detailedRepeatExpression
   hi link rubyRepeatExpression detailedRepeatExpression
   hi link rubyRepeatModifier detailedRepeatModifier
   hi link rubyRepeat detailedRepeat
-  hi link rubyCaseExpression rubyConditionalExpression
+  hi link rubyCaseExpression detailedConditionalExpression
   hi link rubyConditionalExpression detailedConditionalExpression
   hi link rubyConditionalModifier detailedConditionalModifier
   hi link rubyControl detailedControl
   hi link rubyBlockExpression detailedBlockExpression
-  hi link rubyBlock detailedBlock
+  hi link rubyClassBlock detailedBlock
+  hi link rubyModuleBlock detailedBlock
   hi link rubyMethodBlock detailedMethodBlock
   hi link rubyEval detailedEval
   hi link rubyAttribute detailedAttribute
@@ -802,20 +789,18 @@ fun! s:ruby_syntax_and_highlights()
   hi link rubyPredefinedVariable detailedPredefinedVariable
   hi link rubyPredefinedConstant detailedPredefinedConstant
   hi link rubyBlockParameterList detailedBlockParameterList
-  hi link rubyBlockParameter detailedBlockParameter
   hi link rubySymbol detailedSymbol
   hi link rubyBlockArgument detailedBlockArgument
   hi link rubyFloat detailedFloat
   hi link rubyInteger detailedInteger
   hi link rubyPseudoVariable detailedPseudoVariable
-  hi link rubyASCIICode detailedASCIICode
+  hi link rubyCharacter detailedASCIICode
   hi link rubyRegexpDelimiter detailedRegexpDelimiter
   hi link rubyRegexpDot detailedRegexpDot
   hi link rubyRegexpAnchor detailedRegexpAnchor
   hi link rubyRegexpEscape detailedRegexpEscape
   hi link rubyRegexpQuantifier detailedRegexpQuantifier
   hi link rubyRegexpCharClass detailedRegexpCharClass
-  hi link rubyRegexpComment Comment
   hi link rubyRegexpSpecial detailedRegexpSpecial
   hi link rubyInterpolationDelimiter detailedInterpolationDelimiter
   hi link rubyStringDelimiter detailedStringDelimiter
